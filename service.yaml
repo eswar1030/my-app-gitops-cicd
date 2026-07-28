@@ -2,11 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: my-app-service
-spec:
-  type: NodePort
-  ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30008
-  selector:
+  namespace: default
+  labels:
     app: my-app
+spec:
+  type: NodePort # Use ClusterIP if using Ingress next, or NodePort for direct external access
+  selector:
+    app: my-app # Must match the app label in your deployment.yaml template
+  ports:
+    - protocol: TCP
+      port: 80         # Port exposed inside the cluster
+      targetPort: 8080 # Port your application container is listening on
+      nodePort: 30080  # Optional: Fixed port accessible on Node IP (30000-32767)
