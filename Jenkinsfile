@@ -10,11 +10,7 @@ pipeline {
         stage('Update GitOps Repo') {
             steps {
                 script {
-                    withCredentials([usernamePassword(
-                        credentialsId: 'github-pat-credential', 
-                        usernameVariable: 'GIT_USER', 
-                        passwordVariable: 'TOKEN'
-                    )]) {
+                    withCredentials([string(credentialsId: 'github-pat-credential', variable: 'TOKEN')]) {
                         sh '''
                             # Clean up old directory if it exists
                             rm -rf gitops-temp
