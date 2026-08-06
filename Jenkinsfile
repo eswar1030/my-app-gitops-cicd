@@ -2,9 +2,12 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USER = 'eswar1030'
-        IMAGE_NAME     = 'my-app'
-    }
+    APP_REPO = 'https://github.com/eswar1030/my-app.git'
+    GITOPS_REPO = 'https://github.com/eswar1030/my-app-gitops-cicd.git'
+
+    DOCKER_HUB_REPO = 'eswarpala1988/my-app'
+    BUILD_TAG = "v${BUILD_NUMBER}"
+}
 
     stages {
         stage('Update GitOps Repo') {
